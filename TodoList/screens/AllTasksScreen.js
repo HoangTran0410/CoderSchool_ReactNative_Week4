@@ -10,28 +10,29 @@ export default class AllTasksScreen extends Component {
     super(props)
 
     this.state = {
-      todos: Todo
+      todos: Todo,
+      filters: ['Done', 'Active']
     }
 
     this.props.navigation.addListener('didFocus', () => {
-      this.setState({
-        todos: Todo
-      })
+      this._refreshDataFromSource();
+    })
+  }
+
+  _refreshDataFromSource() {
+    this.setState({
+      todos: Todo
     })
   }
 
   _handlePressChangeDataBtn = (key, newData) => {
     setData(key, newData);
-    this.setState({
-      todos: Todo
-    })
+    this._refreshDataFromSource();
   }
 
-  _handlePressDeleteBtn = (key) => {
-    deleteTodo(key);
-    this.setState({
-      todos: Todo
-    })
+  _handlePressDeleteBtn = (key, deleteForever) => {
+    deleteTodo(key, deleteForever);
+    this._refreshDataFromSource();
   }
 
   render() {
@@ -42,7 +43,7 @@ export default class AllTasksScreen extends Component {
           extraData={this.state}
           renderItem={
             ({ item, index }) => {
-              if (item.status != 'Deleted') {
+              if (this.state.filters.includes(item.status)) {
                 return <TodoItem
                   key={item.key}
                   todo={item}

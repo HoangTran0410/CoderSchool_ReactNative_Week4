@@ -9,5 +9,5 @@ export default class DeletedScreen extends AllTasksScreen {
 }
 
 DeletedScreen.navigationOptions = {
-    title: 'Deleted'
+    title: 'Thùng rác'
 };

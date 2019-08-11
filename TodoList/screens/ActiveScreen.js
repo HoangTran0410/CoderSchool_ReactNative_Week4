@@ -9,5 +9,5 @@ export default class ActiveScreen extends AllTasksScreen {
 }
 
 ActiveScreen.navigationOptions = {
-    title: 'Active'
+    title: 'Việc cần làm'
 };

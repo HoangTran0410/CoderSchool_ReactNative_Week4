@@ -9,5 +9,5 @@ export default class CompleteScreen extends AllTasksScreen {
 }
 
 CompleteScreen.navigationOptions = {
-	title: 'Completed'
+	title: 'Đã hoàn thành'
 };

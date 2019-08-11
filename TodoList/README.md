@@ -31,13 +31,15 @@ Completed user stories:
 
 Rockets 🚀
 
+*  [x] User SEARCH todos with filters and search box.
+
 *  [x] User can see completed todos on the CompleteScreen.
 
 *  [x] User can see active todos on the ActiveScreen.
 
 *  [x] User can delete a todo delete button.
 
-*  [x] User can cancel deleting a todo.
+*  [x] User can edit a todo.
 
 *  [x] User can see todo deleted in trash screen.
 

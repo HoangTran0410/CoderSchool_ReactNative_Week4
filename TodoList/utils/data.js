@@ -108,10 +108,16 @@ const setData = (key, data) => {
     }
 }
 
-const deleteTodo = (key) => {
+const deleteTodo = (key, deleteForever) => {
     for (let i = 0; i < Todo.length; i++) {
         if (Todo[i].key == key) {
-            Todo.splice(i, 1);
+
+            if (Todo.status == 'Deleted' || deleteForever) {
+                Todo.splice(i, 1);
+            } else {
+                Todo[i].status = 'Deleted';
+            }
+
             break;
         }
     }

@@ -79,7 +79,7 @@ class NewTodoOverlay extends Component {
                         <Text h4>Màu</Text>
                         <Picker
                             selectedValue={this.state.color}
-                            style={{ height: 50, width: '100%' }}
+                            style={{ height: 50, width: '100%', backgroundColor: this.state.color  }}
                             onValueChange={(itemValue, itemIndex) =>
                                 this.setState({ color: itemValue })
                             }>

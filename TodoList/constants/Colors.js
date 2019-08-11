@@ -16,6 +16,7 @@ export default {
 	editButtonColor: '#011627',
 	titleTodoColor: '#000',
 	detailTodoColor: '#999',
+	dateTodoColor: '#333',
 
 	// done todo
 	doneTodoBackground: '#efefef',

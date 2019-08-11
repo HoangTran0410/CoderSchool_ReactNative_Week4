@@ -23,6 +23,7 @@ class NewTodoOverlay extends Component {
             title: this.state.title,
             detail: this.state.detail,
             color: this.state.color,
+            date: new Date().toLocaleDateString(),
         }
         this.props.onPressAddNewTodo(data);
         this._toggleOverlay();

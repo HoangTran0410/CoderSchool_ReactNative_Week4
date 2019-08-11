@@ -246,7 +246,6 @@ export default class TodoItem extends Component {
             opacity: (isDone ? 0.7 : 1)
         }
 
-
         return (
             <Swipeout {...swipeoutSetting}>
                 <View style={containerStyle}>
@@ -262,6 +261,7 @@ export default class TodoItem extends Component {
                         </Text>
                     </TouchableOpacity>
                     <View style={styles.todoRightContainer}>
+                        <Text style={styles.date}>{this.props.todo.date}</Text>
                     </View>
                 </View>
                 {
@@ -279,10 +279,10 @@ const styles = StyleSheet.create({
         borderLeftWidth: 5,
     },
     todoLeftContainer: {
-        flex: 70,
+        flex: 60,
     },
     todoRightContainer: {
-        flex: 30,
+        flex: 40,
     },
     title: {
         color: Colors.titleTodoColor,
@@ -300,5 +300,12 @@ const styles = StyleSheet.create({
         padding: 5,
         fontWeight: 'bold',
         borderBottomLeftRadius: 20,
+    },
+    date: {
+        color: Colors.detailTodoColor,
+        fontSize: 12,
+        position: 'absolute',
+        right: 0,
+        bottom: -15,
     }
 })

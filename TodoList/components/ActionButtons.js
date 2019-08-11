@@ -79,7 +79,7 @@ class NewTodoOverlay extends Component {
                         <Text h4>Màu</Text>
                         <Picker
                             selectedValue={this.state.color}
-                            style={{ height: 50, width: '100%', backgroundColor: this.state.color  }}
+                            style={{ height: 50, width: '100%', backgroundColor: this.state.color }}
                             onValueChange={(itemValue, itemIndex) =>
                                 this.setState({ color: itemValue })
                             }>
@@ -94,6 +94,12 @@ class NewTodoOverlay extends Component {
                             raised
                             onPress={() => this._onPressAddNewTodo()}
                             title='Thêm'
+                        />
+                        <Button
+                            raised
+                            type='outline'
+                            onPress={() => this._toggleOverlay()}
+                            title='Huỷ'
                         />
                     </View>
                 </Overlay>
@@ -186,10 +192,18 @@ class EditTodoOverlay extends Component {
                             }
                         </Picker>
 
+                        <Divider />
+
                         <Button
                             raised
                             onPress={() => this._onPressEditTodo()}
                             title='Đồng ý'
+                        />
+                        <Button
+                            raised
+                            type='outline'
+                            onPress={() => this._toggleOverlay()}
+                            title='Huỷ'
                         />
                     </View>
                 </Overlay>

@@ -1,3 +1,6 @@
+const ListStatus = ['Done', 'Active', 'Deleted'];
+const ListColors = ['red', 'pink', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'white'];
+
 let Todo = [{
     key: '1',
     status: 'Deleted',
@@ -97,6 +100,10 @@ let Todo = [{
 }
 ];
 
+const createTodo = (data) => {
+    Todo.push(data);
+}
+
 const setData = (key, data) => {
     for (let todo of Todo) {
         if (todo.key == key) {
@@ -125,6 +132,9 @@ const deleteTodo = (key, deleteForever) => {
 
 export {
     Todo,
+    createTodo,
     setData,
-    deleteTodo
+    deleteTodo,
+    ListStatus,
+    ListColors
 }

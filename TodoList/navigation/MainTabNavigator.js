@@ -2,15 +2,55 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
+// import SettingsScreen from '../screens/SettingsScreen';
 import TabBarIcon from '../components/TabBarIcon';
-import CompleteScreen from '../screens/CompleteScreen';
 import AllTasksScreen from '../screens/AllTasksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import CompleteScreen from '../screens/CompleteScreen';
+import ActiveScreen from '../screens/ActiveScreen';
+import DeletedScreen from '../screens/DeletedScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
+
+
+// ============== All Tasks Stack ================
+
+const AllTasksStack = createStackNavigator(
+  {
+    AllTasks: AllTasksScreen,
+  },
+  config
+);
+
+AllTasksStack.navigationOptions = {
+  tabBarLabel: 'All Tasks',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={'ios-list'} />
+  ),
+};
+
+AllTasksStack.path = '';
+
+
+// ================ Active Stack ==============
+
+const ActiveStack = createStackNavigator(
+  {
+    Active: ActiveScreen,
+  },
+  config
+);
+
+ActiveStack.navigationOptions = {
+  tabBarLabel: 'Active',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={'md-flash'} />
+  ),
+};
+
+ActiveStack.path = '';
 
 
 // ==================== Complete Stack =================
@@ -38,53 +78,32 @@ CompleteStack.navigationOptions = {
 
 CompleteStack.path = '';
 
+// ================ Deleted Stack ==============
 
-
-// ============== Link Stack ================
-
-const AllTasksStack = createStackNavigator(
+const DeletedStack = createStackNavigator(
   {
-    AllTasks: AllTasksScreen,
+    Deleted: DeletedScreen,
   },
   config
 );
 
-AllTasksStack.navigationOptions = {
-  tabBarLabel: 'All Tasks',
+DeletedStack.navigationOptions = {
+  tabBarLabel: 'Trash',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={'ios-list'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-trash' : 'md-trash'} />
   ),
 };
 
-AllTasksStack.path = '';
-
-
-
-// ================ Setting Stack ==============
-
-const SettingsStack = createStackNavigator(
-  {
-    Settings: SettingsScreen,
-  },
-  config
-);
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-  ),
-};
-
-SettingsStack.path = '';
+DeletedStack.path = '';
 
 
 // ================ Tab Navigator ===============
 
 const tabNavigator = createBottomTabNavigator({
   AllTasksStack,
+  ActiveStack,
   CompleteStack,
-  SettingsStack,
+  DeletedStack
 });
 
 tabNavigator.path = '';

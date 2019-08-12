@@ -1,31 +1,32 @@
 import React, { Component } from "react";
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
-import { Text, Divider, Button } from 'react-native-elements';
+import { Text, Button } from 'react-native-elements';
 
 export default class SingleTodoScreen extends Component {
 
     render() {
-        const { color, status, title, detail } = this.props.navigation.state.params.todo;
+        const { color, status, title, detail, date } = this.props.navigation.state.params.todo;
 
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#FDFFFC' }}>
+            <View style={styles.container}>
                 <Text h2>{title}</Text>
                 <Text>{`(${status})`}</Text>
 
-                <Divider style={{ backgroundColor: 'blue', height: 10 }} />
+                <View style={{ height: 10, width: 50, backgroundColor: color }} />
+                <View style={styles.divider} />
 
-                <Text style={{ fontSize: 17 }}>{detail}</Text>
+                <Text style={styles.detail}>{detail}</Text>
+
+                <Text style={styles.date}>
+                    {`Ngày tạo: ${date}`}
+                </Text>
 
                 <Button
                     raised
                     onPress={() => this.props.navigation.goBack()}
                     title='Trở về'
-                    containerStyle={{
-                        position: 'absolute',
-                        right: 10,
-                        bottom: 10
-                    }}
+                    containerStyle={styles.backBtn}
                 />
             </View>
         )
@@ -35,3 +36,30 @@ export default class SingleTodoScreen extends Component {
 SingleTodoScreen.navigationOptions = {
     title: 'Chi tiết',
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: '#FDFFFC'
+    },
+    divider: {
+        height: 1,
+        width: '100%',
+        marginVertical: 20,
+        backgroundColor: 'gray'
+    },
+    detail: {
+        fontSize: 17
+    },
+    date: {
+        fontSize: 12,
+        position: 'absolute',
+        bottom: 10
+    },
+    backBtn: {
+        position: 'absolute',
+        right: 10,
+        bottom: 10
+    }
+})

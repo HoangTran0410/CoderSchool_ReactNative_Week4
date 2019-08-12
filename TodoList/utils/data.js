@@ -90,11 +90,19 @@ const deleteTodo = (key, deleteForever) => {
     }
 }
 
+const filterSearchTodo = (filters = [], search = '') => {
+    return Todo.filter(todo => {
+        const { status, title, detail } = todo;
+        return filters.includes(status) && (title.includes(search) || detail.includes(search))
+    })
+}
+
 export {
     Todo,
     createTodo,
     setData,
     deleteTodo,
     ListStatus,
-    ListColors
+    ListColors,
+    filterSearchTodo
 }

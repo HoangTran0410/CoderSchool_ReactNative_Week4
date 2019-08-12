@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
-import { Todo, setData, deleteTodo, ListStatus, createTodo } from '../utils/data';
+import { Todo, setData, deleteTodo, ListStatus, createTodo, filterSearchTodo } from '../utils/data';
 import { FilterOverlay, NewTodoOverlay } from '../components/ActionButtons';
 import TodoItem from '../components/TodoItem';
 
@@ -28,26 +28,22 @@ export default class AllTasksScreen extends Component {
 
 		this.setState({
 			filters: newFilters
+		}, () => {
+			this._refreshDataFromSource();
 		})
 	}
 
 	_onSearch = (searchStr) => {
 		this.setState({
 			search: searchStr
+		}, () => {
+			this._refreshDataFromSource();
 		})
 	}
 
 	_onPressAddNewTodo = (data) => {
 		createTodo(data);
-		this.setState({
-			todos: Todo
-		})
-	}
-
-	_refreshDataFromSource() {
-		this.setState({
-			todos: Todo
-		})
+		this._refreshDataFromSource();
 	}
 
 	_handlePressChangeDataBtn = (key, newData) => {
@@ -60,26 +56,29 @@ export default class AllTasksScreen extends Component {
 		this._refreshDataFromSource();
 	}
 
+	_refreshDataFromSource() {
+		const { filters, search } = this.state;
+		this.setState({
+			todos: filterSearchTodo(filters, search)
+		})
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
 				<FlatList
 					contentContainerStyle={{ paddingBottom: 80 }}
 					data={this.state.todos}
-					extraData={this.state}
+					extraData={this.state.todos}
 					renderItem={
 						({ item, index }) => {
-							if (this.state.filters.includes(item.status)
-								&& (item.title.indexOf(this.state.search) >= 0
-									|| item.detail.indexOf(this.state.search) >= 0)) {
-								return <TodoItem
-									key={item.key}
-									todo={item}
-									onPressChangeDataBtn={this._handlePressChangeDataBtn}
-									onPressDeleteBtn={this._handlePressDeleteBtn}
-									navigation={this.props.navigation}
-								/>
-							}
+							return <TodoItem
+								key={item.key}
+								todo={item}
+								onPressChangeDataBtn={this._handlePressChangeDataBtn}
+								onPressDeleteBtn={this._handlePressDeleteBtn}
+								navigation={this.props.navigation}
+							/>
 						}
 					}
 				>

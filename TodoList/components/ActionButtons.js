@@ -108,6 +108,81 @@ class NewTodoOverlay extends Component {
     }
 }
 
+class FilterOverlay extends Component {
+
+    state = {
+        isVisible: false,
+        search: ''
+    }
+
+    _toggleOverlay = () => {
+        this.setState({ isVisible: !this.state.isVisible })
+    }
+
+    _onChangeSearchText = (searchStr) => {
+        this.setState({ search: searchStr }, () => {
+            this.props.onSearch(searchStr);
+        })
+    }
+
+    render() {
+        return (
+            <View style={{ justifyContent: 'center', backgroundColor: '#0000', margin: 5 }}>
+                <Button
+                    raised
+                    onLongPress={() => { alert('Bộ lọc') }}
+                    onPress={() => this._toggleOverlay()}
+                    buttonStyle={{
+                        width: 50,
+                        height: 50,
+                        alignSelf: 'flex-end',
+                        borderRadius: 25,
+                    }}
+                    icon={
+                        <Icon
+                            name='filter'
+                            type='feather'
+                            color='white'
+                        />
+                    }
+                />
+                <Overlay
+                    isVisible={this.state.isVisible}
+                    windowBackgroundColor="#0005"
+                    height="auto"
+                >
+                    <View>
+                        <Text h4>Bộ Lọc</Text>
+                        <SearchBar
+                            value={this.state.search}
+                            placeholder='Tìm theo nội dung...'
+                            lightTheme={true}
+                            onChangeText={this._onChangeSearchText}
+                        />
+                        {
+                            this.props.fullList.map((filterName, index) => {
+                                let isChecked = this.props.filters.includes(filterName);
+                                return <CheckBox
+                                    key={filterName}
+                                    title={filterName}
+                                    checked={isChecked}
+                                    onPress={() => this.props.onChangeFilters(filterName, isChecked)}
+                                />
+                            })
+
+                        }
+                        <Button
+                            raised
+                            onPress={() => this._toggleOverlay()}
+                            title='Xong'
+                        />
+                    </View>
+                </Overlay>
+            </View>
+        );
+    }
+}
+
 class EditTodoOverlay extends Component {
     state = {
         isVisible: false,
@@ -204,81 +279,6 @@ class EditTodoOverlay extends Component {
                             type='outline'
                             onPress={() => this._toggleOverlay()}
                             title='Huỷ'
-                        />
-                    </View>
-                </Overlay>
-            </View>
-        );
-    }
-}
-
-class FilterOverlay extends Component {
-
-    state = {
-        isVisible: false,
-        search: ''
-    }
-
-    _toggleOverlay = () => {
-        this.setState({ isVisible: !this.state.isVisible })
-    }
-
-    _onChangeSearchText = (searchStr) => {
-        this.setState({ search: searchStr }, () => {
-            this.props.onSearch(searchStr);
-        })
-    }
-
-    render() {
-        return (
-            <View style={{ justifyContent: 'center', backgroundColor: '#0000', margin: 5 }}>
-                <Button
-                    raised
-                    onLongPress={() => { alert('Bộ lọc') }}
-                    onPress={() => this._toggleOverlay()}
-                    buttonStyle={{
-                        width: 50,
-                        height: 50,
-                        alignSelf: 'flex-end',
-                        borderRadius: 25,
-                    }}
-                    icon={
-                        <Icon
-                            name='filter'
-                            type='feather'
-                            color='white'
-                        />
-                    }
-                />
-                <Overlay
-                    isVisible={this.state.isVisible}
-                    windowBackgroundColor="#0005"
-                    height="auto"
-                >
-                    <View>
-                        <Text h4>Bộ Lọc</Text>
-                        <SearchBar
-                            value={this.state.search}
-                            placeholder='Tìm theo nội dung...'
-                            lightTheme={true}
-                            onChangeText={this._onChangeSearchText}
-                        />
-                        {
-                            this.props.fullList.map((filterName, index) => {
-                                let isChecked = this.props.filters.includes(filterName);
-                                return <CheckBox
-                                    key={filterName}
-                                    title={filterName}
-                                    checked={isChecked}
-                                    onPress={() => this.props.onChangeFilters(filterName, isChecked)}
-                                />
-                            })
-
-                        }
-                        <Button
-                            raised
-                            onPress={() => this._toggleOverlay()}
-                            title='Xong'
                         />
                     </View>
                 </Overlay>

@@ -67,6 +67,6 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 1. Create a [blank Expo Project](https://hoangtran0410.github.io/CoderSchool_Courses/TutorialPrepare)
 
-2. Download all folders and files in this **RockPaperScissors** repository
+2. Download all folders and files in this **TodoList** repository
 
 3. Copy and paste to blank Project you have created
